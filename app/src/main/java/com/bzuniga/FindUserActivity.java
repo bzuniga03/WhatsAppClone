@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.provider.Telephony;
 import android.telephony.TelephonyManager;
 
+import com.bzuniga.User.UserListAdapter;
+import com.bzuniga.User.UserObject;
+import com.bzuniga.Utils.CountryToPhonePrefix;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,7 +57,7 @@ public class FindUserActivity extends AppCompatActivity {
             if (!String.valueOf(phone.charAt(0)).equals("+"))
                 phone = ISOPrefix + phone;
 
-            UserObject mContact = new UserObject(name, phone);
+            UserObject mContact = new UserObject("", name, phone);
             contactList.add(mContact);
             getUserDetails(mContact);
         }
@@ -77,7 +79,7 @@ public class FindUserActivity extends AppCompatActivity {
                         if (childSnapshot.child("name").getValue() != null)
                             name = childSnapshot.child("name").getValue().toString();
 
-                        UserObject mUser = new UserObject(name, phone);
+                        UserObject mUser = new UserObject(childSnapshot.getKey(), name, phone);
                         if (name.equals(phone)) {
                             for (UserObject mContactIterator : contactList) {
                                 if (mContactIterator.getPhone().equals(mUser.getPhone())) {

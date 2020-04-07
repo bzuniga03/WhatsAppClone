@@ -1,11 +1,11 @@
-package com.bzuniga;
+package com.bzuniga.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CountryToPhonePrefix {
 
-    static String getPhone(String code) {
+    public static String getPhone(String code) {
         return country2phone.get(code.toUpperCase());
     }
 
